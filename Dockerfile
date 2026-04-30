@@ -8,7 +8,7 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /app/worker ./cmd/worker/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/worker ./cmd/api/main.go
 
 # Final Stage
 FROM alpine:latest
@@ -20,4 +20,5 @@ RUN apk --no-cache add ca-certificates tzdata
 COPY --from=builder /app/worker .
 
 CMD ["./worker"]
+
 
